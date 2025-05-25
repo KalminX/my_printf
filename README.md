@@ -34,8 +34,6 @@ A custom implementation of the C Standard Library's `printf` function, supportin
 ├── custom_printf.h        # Header file with declarations
 └── tests.c            # Tests comparing `my_printf` vs `printf`
 
-````
-
 ---
 
 ## 🛠️ Build Instructions
