@@ -145,7 +145,7 @@ int print_octal(va_list *args, format_spec *spec) {
     return len + padding;
 }
 
-int print_hex(va_list *args, format_spec *spec) {
+int print_hex(va_list *args, format_spec *spec, int uppercase) {
     unsigned int num = va_arg(*args, unsigned int);
     char buf[20];
     int i = 19;
@@ -156,7 +156,9 @@ int print_hex(va_list *args, format_spec *spec) {
     } else {
         while (num > 0) {
             int digit = num % 16;
-            buf[i--] = (digit < 10) ? ('0' + digit) : ('a' + digit - 10);
+            buf[i--] = (digit < 10)
+                       ? ('0' + digit)
+                       : (uppercase ? 'A' + digit - 10 : 'a' + digit - 10);
             num /= 16;
         }
     }
@@ -177,12 +179,12 @@ int print_hex(va_list *args, format_spec *spec) {
     return len + padding;
 }
 
-int print_hex_lower(va_list *args) {
-    return print_hex(args, 0);
+int print_hex_lower(va_list *args, format_spec *spec) {
+    return print_hex(args, spec, 0);  // lowercase
 }
 
-int print_hex_upper(va_list *args) {
-    return print_hex(args, 1);
+int print_hex_upper(va_list *args, format_spec *spec) {
+    return print_hex(args, spec, 1);  // UPPERCASE
 }
 
 int print_pointer(va_list *args, format_spec *spec) {
@@ -259,7 +261,10 @@ int my_printf(const char *format, ...) {
                     handler = print_unsigned;
                     break;
                 case 'x':
-                    handler = print_hex;
+                    handler = print_hex_lower;
+                    break;
+                case 'X':
+                    handler = print_hex_upper;
                     break;
                 case 'o':
                     handler = print_octal;
