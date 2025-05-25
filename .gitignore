@@ -1,0 +1,28 @@
+# Build artifacts
+*.o
+*.out
+*.a
+*.so
+*.exe
+
+# Binaries
+custom_print_app
+test_runner
+
+# Editor files
+*~
+*.swp
+*.swo
+
+# OS junk
+.DS_Store
+
+# Backup files
+*.bak
+*.tmp
+
+# Logs
+*.log
+
+# Object dumps
+*.dSYM/
